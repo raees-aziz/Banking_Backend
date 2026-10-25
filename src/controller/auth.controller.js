@@ -24,7 +24,7 @@ async function userRegister(req, res) {
     async function userLogin(req,res){
         const { email, password } = req.body;
     
-    const user = await userModel.findOne({email});
+    const user = await userModel.findOne({email}).select("+password");
     if (!user) return res.status(401).json({ message: "Email or Password Invalid" });
 
     const isValidPassword = await user.comparePassword(password)    
